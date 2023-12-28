@@ -3,7 +3,7 @@ mod job;
 mod arg;
 mod command;
 
-use std::error::Error;
+//use std::error::Error;
 use clap::Parser;
 
 use crate::job::Job;

@@ -1,0 +1,18 @@
+{
+    "name": "crystal",
+    "queues": ["P_016", "P_032", "P_064", "DP_002"],
+    "template": "super/crystal.sh",
+    "versions": [
+        {
+            "name": "17",
+            "dir": "/work/app/Crystal/current",
+            "config": "/work/app/Crystal/current/utils17/cry17.bashrc",
+            "bins": [
+                {
+                    "name": "runmpi17",
+                    "path": "runmpi17"
+                }
+            ]
+        }
+    ]
+}

@@ -4,33 +4,30 @@ use std::fs;
 use crate::command;
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct App {
+pub struct AppSpec {
     name: String,
-    queues: Vec<Queue>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Queue {
-    name: String,
-    versions: Vec<Version>,
+    queues: Vec<String>,
+    versions: Vec<VersionSpec>,
     #[serde(default)]
     template: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Version {
+pub struct VersionSpec {
     name: String,
+    #[serde(default)]
+    dir: Option<String>,
     #[serde(default)]
     is_default: bool,
-    bins: Vec<Bin>,
+    bins: Vec<BinSpec>,
     #[serde(default)]
-    config_path: Option<String>,
+    config: Option<String>,
     #[serde(default)]
     template: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Bin {
+pub struct BinSpec {
     name: String,
     #[serde(default)]
     is_default: bool,
@@ -39,13 +36,9 @@ pub struct Bin {
     template: Option<String>,
 }
 
-impl App {
+impl AppSpec {
     pub fn from_json(json_path: &str) -> Self {
-        //let mut jsonref = JsonRef::new();
         let spec_json = fs::read_to_string(&json_path).expect("should have been able to read the file");
-        //let mut spec_json = jsonref.deref_file(&json_path).expect("should have been able to read the file");
-        //jsonref.deref_value(&mut spec_json).unwrap();
-        //println!("{}", spec_json);
         serde_json::from_str(&spec_json).expect("JSON format error")
     }
 
@@ -53,87 +46,71 @@ impl App {
         self.name.clone()
     }
 
-    pub fn get_queue_by_name(&self, name: &str) -> Option<&Queue> {
-        self.queues.iter().filter(|&queue| queue.name == name).next()
+    pub fn get_default_queue(&self) -> String {
+        self.queues[0].clone()
     }
 
-    pub fn get_config_path(&self, cmd: &command::Command) -> Option<String> {
-        let queue = self.get_queue_by_name(&cmd.queue()).unwrap();
-        let version = if let Some(version) = &cmd.version() {
-            queue.get_version_by_name(&version).unwrap()
-        } else {
-            queue.get_default_version().unwrap()
-        };
-
-        version.config_path.clone()
+    pub fn is_available_on_queue(&self, queue: &str) -> bool {
+        self.queues.contains(&queue.to_owned())
     }
 
-    pub fn get_exec_path(&self, cmd: &command::Command) -> String {
-        let queue = self.get_queue_by_name(&cmd.queue()).unwrap();
-        let version = if let Some(version) = &cmd.version() {
-            queue.get_version_by_name(&version).unwrap()
-        } else {
-            queue.get_default_version().unwrap()
-        };
-        let bin = if let Some(bin) = &cmd.bin() {
-            version.get_bin_by_name(&bin).unwrap()
-        } else {
-            version.get_default_bin().unwrap()
-        };
-
-        bin.get_path()
-    }
-
-    pub fn get_template(&self, cmd: &command::Command) -> String {
-        let queue = self.get_queue_by_name(&cmd.queue()).unwrap();
-        let version = if let Some(version) = &cmd.version() {
-            queue.get_version_by_name(&version).unwrap()
-        } else {
-            queue.get_default_version().unwrap()
-        };
-        let bin = if let Some(bin) = &cmd.bin() {
-            version.get_bin_by_name(&bin).unwrap()
-        } else {
-            version.get_default_bin().unwrap()
-        };
-
-        if let Some(template) = bin.get_template() {
-            template
-        } else if let Some(template) = version.get_template() {
-            template
-        } else if let Some(template) = queue.get_template() {
-            template
-        } else {
-            panic!("template file is not specified");
-        }
-    }
-}
-
-impl Queue {
-    pub fn get_version_by_name(&self, name: &str) -> Option<&Version> {
+    pub fn get_version_by_name(&self, name: &str) -> Option<&VersionSpec> {
         self.versions.iter().filter(|&version| version.name == name).next()
     }
 
-    pub fn get_default_version(&self) -> Option<&Version> {
-        self.versions.iter().filter(|&version| version.is_default).next()
+    pub fn get_default_version(&self) -> &VersionSpec {
+        if let Some(version) = self.versions.iter().filter(|&version| version.is_default).next() {
+            version
+        } else {
+            &self.versions[0]    // if is_default is not specified, the first element is treated as the default version.
+        }
+    }
+
+    pub fn get_version(&self, cmd: &command::Command) -> &VersionSpec {
+        if let Some(version) = &cmd.version() {
+            self.get_version_by_name(&version).expect("no such version")
+        } else {
+            self.get_default_version()
+        }
     }
 
     pub fn get_template(&self) -> Option<String> {
         self.template.clone()
     }
+
 }
 
-impl Version {
-    pub fn get_bin_by_name(&self, name: &str) -> Option<&Bin> {
+impl VersionSpec {
+    pub fn get_bin_by_name(&self, name: &str) -> Option<&BinSpec> {
         self.bins.iter().filter(|&bin| bin.name == name).next()
     }
 
-    pub fn get_default_bin(&self) -> Option<&Bin> {
-        self.bins.iter().filter(|&bin| bin.is_default).next()
+    pub fn get_default_bin(&self) -> &BinSpec {
+        if let Some(bin) = self.bins.iter().filter(|&bin| bin.is_default).next() {
+            bin
+        } else {
+            &self.bins[0]
+        }
+    }
+
+    pub fn get_bin(&self, cmd: &command::Command) -> &BinSpec {
+        if let Some(bin) = &cmd.bin() {
+            self.get_bin_by_name(&bin).expect("no such binary")
+        } else {
+            self.get_default_bin()
+        }
+    }
+
+    pub fn get_name(&self) -> String {
+        self.name.clone()
+    }
+
+    pub fn get_dir(&self) -> Option<String> {
+        self.dir.clone()
     }
 
     pub fn get_config(&self) -> Option<String> {
-        self.config_path.clone()
+        self.config.clone()
     }
 
     pub fn get_template(&self) -> Option<String> {
@@ -141,7 +118,11 @@ impl Version {
     }
 }
 
-impl Bin {
+impl BinSpec {
+    pub fn get_name(&self) -> String {
+        self.name.clone()
+    }
+
     pub fn get_path(&self) -> String {
         self.path.clone()
     }

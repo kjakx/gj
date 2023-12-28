@@ -1,5 +1,6 @@
 #!/bin/sh
-#PBS -l select=1
+#PBS -l select={{ nodes }}
+#PBS -l adf={{ nodes * ppn }}
 #PBS -N {{ job_name }}
 #PBS -q {{ queue }}
 {%- if walltime %}
@@ -10,7 +11,7 @@
 #PBS -M {{ mail_address }}
 {%- endif %}
 
-source {{ app.config }}
+module load adf/{{ app.version }}
 {%- if use_workdir %}
 DIRNAME=`basename $PBS_O_WORKDIR`
 WORKDIR=/work/$USER/$PBS_JOBID
@@ -21,7 +22,7 @@ cd $WORKDIR/$DIRNAME
 cd ${PBS_O_WORKDIR}
 {%- endif %}
 
-aprun -j 1 -d {{ ppn }} g16 > {{ job_name }}.out 2> {{ job_name }}.err
+{{ app.bin }} -n {{ nodes * ppn }} < {{ job_name }}.in > {{ job_name }}.out 2> {{ job_name }}.err
 
 {%- if use_workdir %}
 cd; if cp -raf $WORKDIR/$DIRNAME $PBS_O_WORKDIR/.. ; then rm -rf $WORKDIR; fi

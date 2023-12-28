@@ -1,7 +1,7 @@
 #!/bin/sh
-#PBS -l select=1
 #PBS -N {{ job_name }}
 #PBS -q {{ queue }}
+#PBS -l select={{ nodes }}
 {%- if walltime %}
 #PBS -l walltime={{ walltime }}
 {%- endif %}
@@ -10,7 +10,6 @@
 #PBS -M {{ mail_address }}
 {%- endif %}
 
-source {{ app.config }}
 {%- if use_workdir %}
 DIRNAME=`basename $PBS_O_WORKDIR`
 WORKDIR=/work/$USER/$PBS_JOBID
@@ -21,8 +20,16 @@ cd $WORKDIR/$DIRNAME
 cd ${PBS_O_WORKDIR}
 {%- endif %}
 
-aprun -j 1 -d {{ ppn }} g16 > {{ job_name }}.out 2> {{ job_name }}.err
+{%- if use_workdir %}
+export SCRATCH=$WORKDIR/$DIRNAME
+export TMPDIR=$WORKDIR/$DIRNAME
+{%- endif %} 
+export WIENROOT={{ app.dir }}
+export PATH=$WIENROOT:$PATH
+module load intel
+
+aprun -b -d {{ nodes * ppn }} -j 1 --cc depth {{ app.bin }} -p -cc 0.0001 -NI > {{ job_name }}.out 2> {{ job_name }}.err
 
 {%- if use_workdir %}
 cd; if cp -raf $WORKDIR/$DIRNAME $PBS_O_WORKDIR/.. ; then rm -rf $WORKDIR; fi
-{%- endif %}
+{%- endif -%}

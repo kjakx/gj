@@ -1,4 +1,5 @@
-use clap::{Args, Parser, Subcommand};
+//use clap::{Args, Parser, Subcommand};
+use clap::{Parser};
 use crate::command::Command;
 
 #[derive(Debug, Parser)]
@@ -12,6 +13,9 @@ use crate::command::Command;
 pub struct Arg {
     #[command(subcommand)]
     pub command: Command,
+    // job queue
+    #[arg(long, value_name = "Job Queue", global = true)]
+    pub queue: Option<String>,
     // job name
     #[arg(long, value_name = "Job Name", global = true)]
     pub name: Option<String>,
