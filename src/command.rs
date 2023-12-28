@@ -13,7 +13,7 @@ pub enum Command {
     Crystal(CommandArg),
     
     #[command(about = "Generate QuantumATK Job Script")]
-    Quantumatk(CommandArg),
+    QuantumAtk(CommandArg),
 
     #[command(about = "Generate VASP4 Job Script")]
     Vasp4(CommandArg),
@@ -26,6 +26,21 @@ pub enum Command {
 
     #[command(about = "Generate WIEN2k Job Script")]
     Wien2k(CommandArg),
+
+    #[command(about = "Generate CPMD Job Script")]
+    Cpmd(CommandArg),
+
+    #[command(about = "Generate ABINIT Job Script")]
+    Abinit(CommandArg),
+
+    #[command(about = "Generate LAMMPS Job Script")]
+    Lammps(CommandArg),
+
+    #[command(about = "Generate SIESTA Job Script")]
+    Siesta(CommandArg),
+
+    #[command(about = "Generate Quantum ESPRESSO Job Script")]
+    QuantumEspresso(CommandArg),
 }
 
 #[derive(Debug, Args)]
@@ -49,7 +64,7 @@ impl fmt::Display for Command {
             Command::Crystal(_) => {
                 write!(f, "crystal")
             },
-            Command::Quantumatk(_) => {
+            Command::QuantumAtk(_) => {
                 write!(f, "quantumatk")
             },
             Command::Vasp4(_) => {
@@ -63,6 +78,21 @@ impl fmt::Display for Command {
             },
             Command::Wien2k(_) => {
                 write!(f, "wien2k")
+            },
+            Command::Cpmd(_) => {
+                write!(f, "cpmd")
+            },
+            Command::Abinit(_) => {
+                write!(f, "abinit")
+            },
+            Command::Lammps(_) => {
+                write!(f, "lammps")
+            },
+            Command::Siesta(_) => {
+                write!(f, "siesta")
+            },
+            Command::QuantumEspresso(_) => {
+                write!(f, "quantumespresso")
             }
         }
     }
@@ -80,7 +110,7 @@ impl Command {
             Command::Crystal(arg) => {
                 arg.version.clone()
             },
-            Command::Quantumatk(arg) => {
+            Command::QuantumAtk(arg) => {
                 arg.version.clone()
             },
             Command::Vasp4(arg) => {
@@ -93,6 +123,21 @@ impl Command {
                 arg.version.clone()
             },
             Command::Wien2k(arg) => {
+                arg.version.clone()
+            },
+            Command::Cpmd(arg) => {
+                arg.version.clone()
+            },
+            Command::Abinit(arg) => {
+                arg.version.clone()
+            },
+            Command::Lammps(arg) => {
+                arg.version.clone()
+            },
+            Command::Siesta(arg) => {
+                arg.version.clone()
+            },
+            Command::QuantumEspresso(arg) => {
                 arg.version.clone()
             },
         }
@@ -109,7 +154,7 @@ impl Command {
             Command::Crystal(arg) => {
                 arg.bin.clone()
             },
-            Command::Quantumatk(arg) => {
+            Command::QuantumAtk(arg) => {
                 arg.bin.clone()
             },
             Command::Vasp4(arg) => {
@@ -123,7 +168,22 @@ impl Command {
             },
             Command::Wien2k(arg) => {
                 arg.bin.clone()
-            }
+            },
+            Command::Cpmd(arg) => {
+                arg.bin.clone()
+            },
+            Command::Abinit(arg) => {
+                arg.bin.clone()
+            },
+            Command::Lammps(arg) => {
+                arg.bin.clone()
+            },
+            Command::Siesta(arg) => {
+                arg.bin.clone()
+            },
+            Command::QuantumEspresso(arg) => {
+                arg.bin.clone()
+            },
         }
     }
 }

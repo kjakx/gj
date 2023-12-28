@@ -15,11 +15,11 @@ pub struct AppSpec {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct VersionSpec {
     name: String,
+    bins: Vec<BinSpec>,
     #[serde(default)]
     dir: Option<String>,
     #[serde(default)]
     is_default: bool,
-    bins: Vec<BinSpec>,
     #[serde(default)]
     config: Option<String>,
     #[serde(default)]
@@ -29,9 +29,9 @@ pub struct VersionSpec {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BinSpec {
     name: String,
+    path: String,
     #[serde(default)]
     is_default: bool,
-    path: String,
     #[serde(default)]
     template: Option<String>,
 }

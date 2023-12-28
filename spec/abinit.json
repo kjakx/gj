@@ -1,0 +1,79 @@
+{
+    "name": "abinit",
+    "queues": ["P_016", "P_032", "P_064", "DP_002"],
+    "template": "super/abinit.sh",
+    "versions": [
+        {
+            "name": "8.8.2",
+            "bins": [
+                {
+                    "name": "abinit",
+                    "path": "/work/app/ABINIT/current/src/98_main/abinit"
+                }
+            ]
+        },
+        {
+            "name": "8.10.2",
+            "bins": [
+                {
+                    "name": "abinit",
+                    "path": "/work/app/ABINIT/abinit-8.10.2/src/98_main/abinit"
+                }
+            ]
+        },
+        {
+            "name": "8.10.3",
+            "bins": [
+                {
+                    "name": "abinit",
+                    "path": "/work/app/ABINIT/abinit-8.10.3/src/98_main/abinit"
+                }
+            ]
+        },
+        {
+            "name": "9.2.2",
+            "bins": [
+                {
+                    "name": "abinit",
+                    "path": "/work/app/ABINIT/abinit-9.2.2/src/98_main/abinit"
+                }
+            ]
+        },
+        {
+            "name": "9.4.2",
+            "bins": [
+                {
+                    "name": "abinit",
+                    "path": "/work/app/ABINIT/abinit-9.4.2/src/98_main/abinit"
+                }
+            ]
+        },
+        {
+            "name": "9.6.2",
+            "bins": [
+                {
+                    "name": "abinit",
+                    "path": "/work/app/ABINIT/abinit-9.6.2/src/98_main/abinit"
+                }
+            ]
+        },
+        {
+            "name": "9.8.2",
+            "bins": [
+                {
+                    "name": "abinit",
+                    "path": "/work/app/ABINIT/abinit-9.8.2/src/98_main/abinit"
+                }
+            ]
+        },
+        {
+            "name": "9.10.3",
+            "bins": [
+                {
+                    "name": "abinit",
+                    "path": "/work/app/ABINIT/abinit-9.10.3/src/98_main/abinit"
+                }
+            ]
+        }
+    ]
+}

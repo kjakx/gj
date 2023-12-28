@@ -22,16 +22,12 @@ pub struct Arg {
     // the number of nodes
     #[arg(long, value_name = "The Number of Nodes", global = true)]
     pub nodes: Option<u8>,
-
-    /*
     // the number of cpus
-    #[clap(long = 'ncpus', value_name = "The Number of CPUs")]
-    ncpus: Option<u8>,
+    #[clap(long, value_name = "The Number of CPUs", global = true)]
+    pub ncpus: Option<u8>,
     // the number of gpus
-    #[clap(long = "ngpus", value_name = "The Number of GPUs")]    
-    ngpus: Option<u8>,
-    */
-
+    #[clap(long, value_name = "The Number of GPUs", global = true)]    
+    pub ngpus: Option<u8>,
     // the number of processes per node
     #[arg(long, value_name = "The Number of Processes per Node", global = true)]
     pub ppn: Option<u8>,

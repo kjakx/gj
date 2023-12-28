@@ -1,27 +1,24 @@
 {
     "name": "gaussian16",
     "queues": ["P_016", "P_032", "P_064", "DP_002"],
+    "template": "super/gaussian16.sh",
     "versions": [
         {
             "name": "B.01",
-            "template": "super/gaussian16.sh",
             "config": "/work/app/Gaussian/g16.profile",
             "bins": [
                 {
                     "name": "g16",
-                    "is_default": true,
                     "path": "g16"
                 }
             ]
         },
         {
             "name": "C.01",
-            "template": "super/gaussian16.sh",
             "config": "/work/app/Gaussian/C.01/g16.profile",
             "bins": [
                 {
                     "name": "g16",
-                    "is_default": true,
                     "path": "g16"
                 }
             ]

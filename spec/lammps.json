@@ -1,0 +1,88 @@
+{
+    "name": "lammps",
+    "queues": ["P_016", "P_032", "P_064", "DP_002"],
+    "template": "super/lammps.sh",
+    "versions": [
+        {
+            "name": "31Mar17",
+            "bins": [
+                {
+                    "name": "lmp_intel_omp",
+                    "path": "/work/app/LAMMPS/current/src/lmp_intel_omp"
+                }
+            ]
+        },
+        {
+            "name": "22Aug18",
+            "bins": [
+                {
+                    "name": "lmp_intel_omp",
+                    "path": "/work/app/LAMMPS/lammps-22Aug18/src/lmp_intel_omp"
+                }
+            ]
+        },
+        {
+            "name": "12Dec18",
+            "bins": [
+                {
+                    "name": "lmp_intel_omp",
+                    "path": "/work/app/LAMMPS/lammps-12Dec18/src/lmp_intel_omp"
+                }
+            ]
+        },
+        {
+            "name": "5Jun19",
+            "bins": [
+                {
+                    "name": "lmp_intel_omp",
+                    "path": "/work/app/LAMMPS/lammps-5Jun19/src/lmp_intel_omp"
+                }
+            ]
+        },
+        {
+            "name": "7Aug19",
+            "bins": [
+                {
+                    "name": "lmp_intel_omp",
+                    "path": "/work/app/LAMMPS/lammps-7Aug19/src/lmp_intel_omp"
+                }
+            ]
+        },
+        {
+            "name": "3Mar20",
+            "bins": [
+                {
+                    "name": "lmp_intel_omp",
+                    "path": "/work/app/LAMMPS/lammps-3Mar20/src/lmp_intel_omp"
+                }
+            ]
+        },
+        {
+            "name": "29Oct20",
+            "bins": [
+                {
+                    "name": "lmp_intel_omp",
+                    "path": "/work/app/LAMMPS/lammps-29Oct20/src/lmp_intel_omp"
+                }
+            ]
+        },
+        {
+            "name": "29Sep21",
+            "bins": [
+                {
+                    "name": "lmp_intel_omp",
+                    "path": "/work/app/LAMMPS/lammps-29Sep21/src/lmp_intel_omp"
+                }
+            ]
+        },
+        {
+            "name": "23Jun22",
+            "bins": [
+                {
+                    "name": "lmp_intel_omp",
+                    "path": "/work/app/LAMMPS/lammps-23Jun22/src/lmp_intel_omp"
+                }
+            ]
+        }
+    ]
+}
