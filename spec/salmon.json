@@ -1,0 +1,34 @@
+{
+    "name": "salmon",
+    "queues": ["P_016", "P_032", "P_064", "DP_002"],
+    "template": "super/salmon.sh",
+    "versions": [
+        {
+            "name": "1.2.1",
+            "bins": [
+                {
+                    "name": "salmon.cpu",
+                    "path": "/work/app/SALMON/current/bin/salmon.cpu"
+                }
+            ]
+        },
+        {
+            "name": "2.0.0",
+            "bins": [
+                {
+                    "name": "salmon.cpu",
+                    "path": "/work/app/SALMON/SALMON2-v.2.0.0/bin/salmon.cpu"
+                }
+            ]
+        },
+        {
+            "name": "2.1.0",
+            "bins": [
+                {
+                    "name": "salmon.cpu",
+                    "path": "/work/app/SALMON/SALMON2-v.2.1.0/bin/salmon.cpu"
+                }
+            ]
+        }
+    ]
+}

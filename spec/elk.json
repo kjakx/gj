@@ -1,0 +1,43 @@
+{
+    "name": "elk",
+    "queues": ["P_016", "P_032", "P_064", "DP_002"],
+    "template": "super/elk.sh",
+    "versions": [
+        {
+            "name": "6.3.2",
+            "bins": [
+                {
+                    "name": "elk",
+                    "path": "/work/app/Elk/current/src/elk"
+                }
+            ]
+        },
+        {
+            "name": "6.8.4",
+            "bins": [
+                {
+                    "name": "elk",
+                    "path": "/work/app/Elk/elk-6.8.4/src/elk"
+                }
+            ]
+        },
+        {
+            "name": "7.2.42",
+            "bins": [
+                {
+                    "name": "elk",
+                    "path": "/work/app/Elk/elk-7.2.42/src/elk"
+                }
+            ]
+        },
+        {
+            "name": "8.7.6",
+            "bins": [
+                {
+                    "name": "elk",
+                    "path": "/work/app/Elk/elk-8.7.6/src/elk"
+                }
+            ]
+        }
+    ]
+}

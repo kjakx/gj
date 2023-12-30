@@ -1,0 +1,16 @@
+{
+    "name": "octopus",
+    "queues": ["P_016", "P_032", "P_064", "DP_002"],
+    "template": "super/octopus.sh",
+    "versions": [
+        {
+            "name": "current",
+            "bins": [
+                {
+                    "name": "octopus",
+                    "path": "/work/app/OCTOPUS/current/bin/octopus"
+                }
+            ]
+        }
+    ]
+}

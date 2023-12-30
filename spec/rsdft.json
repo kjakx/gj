@@ -1,0 +1,16 @@
+{
+    "name": "rsdft",
+    "queues": ["P_016", "P_032", "P_064", "DP_002"],
+    "template": "super/rsdft.sh",
+    "versions": [
+        {
+            "name": "current",
+            "bins": [
+                {
+                    "name": "rsdft.x",
+                    "path": "/work/app/RSDFT/current/src/rsdft.x"
+                }
+            ]
+        }
+    ]
+}
