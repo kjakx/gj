@@ -13,7 +13,7 @@ pub enum Command {
     Crystal(CommandArg),
     
     #[command(about = "Generate QuantumATK Job Script")]
-    QuantumAtk(CommandArg),
+    Quantumatk(CommandArg),
 
     #[command(about = "Generate VASP4 Job Script")]
     Vasp4(CommandArg),
@@ -41,6 +41,42 @@ pub enum Command {
 
     #[command(about = "Generate Quantum ESPRESSO Job Script")]
     QuantumEspresso(CommandArg),
+
+    #[command(about = "Generate OpenMX Job Script")]
+    Openmx(CommandArg),
+
+    #[command(about = "Generate SMASH Job Script")]
+    Smash(CommandArg),
+
+    #[command(about = "Generate TOMBO Job Script")]
+    Tombo(CommandArg),
+
+    #[command(about = "Generate RSDFT Job Script")]
+    Rsdft(CommandArg),
+
+    #[command(about = "Generate HPhi Job Script")]
+    Hphi(CommandArg),
+
+    #[command(about = "Generate mVMC Job Script")]
+    Mvmc(CommandArg),
+
+    #[command(about = "Generate CP2K Job Script")]
+    Cp2k(CommandArg),
+
+    #[command(about = "Generate Elk Job Script")]
+    Elk(CommandArg),
+
+    #[command(about = "Generate ALAMODE Job Script")]
+    Alamode(CommandArg),
+
+    #[command(about = "Generate SALMON Job Script")]
+    Salmon(CommandArg),
+
+    #[command(about = "Generate OCTOPUS Job Script")]
+    Octopus(CommandArg),
+
+    #[command(about = "Generate Wannier90 Job Script")]
+    Wannier90(CommandArg),
 }
 
 #[derive(Debug, Args)]
@@ -64,7 +100,7 @@ impl fmt::Display for Command {
             Command::Crystal(_) => {
                 write!(f, "crystal")
             },
-            Command::QuantumAtk(_) => {
+            Command::Quantumatk(_) => {
                 write!(f, "quantumatk")
             },
             Command::Vasp4(_) => {
@@ -92,8 +128,44 @@ impl fmt::Display for Command {
                 write!(f, "siesta")
             },
             Command::QuantumEspresso(_) => {
-                write!(f, "quantumespresso")
-            }
+                write!(f, "quantum-espresso")
+            },
+            Command::Openmx(_) => {
+                write!(f, "openmx")
+            },
+            Command::Smash(_) => {
+                write!(f, "smash")
+            },
+            Command::Tombo(_) => {
+                write!(f, "tombo")
+            },
+            Command::Rsdft(_) => {
+                write!(f, "rsdft")
+            },
+            Command::Hphi(_) => {
+                write!(f, "hphi")
+            },
+            Command::Mvmc(_) => {
+                write!(f, "mvmc")
+            },
+            Command::Cp2k(_) => {
+                write!(f, "cp2k")
+            },
+            Command::Elk(_) => {
+                write!(f, "elk")
+            },
+            Command::Alamode(_) => {
+                write!(f, "alamode")
+            },
+            Command::Salmon(_) => {
+                write!(f, "salmon")
+            },
+            Command::Octopus(_) => {
+                write!(f, "octopus")
+            },
+            Command::Wannier90(_) => {
+                write!(f, "wannier90")
+            },
         }
     }
 }
@@ -110,7 +182,7 @@ impl Command {
             Command::Crystal(arg) => {
                 arg.version.clone()
             },
-            Command::QuantumAtk(arg) => {
+            Command::Quantumatk(arg) => {
                 arg.version.clone()
             },
             Command::Vasp4(arg) => {
@@ -138,6 +210,42 @@ impl Command {
                 arg.version.clone()
             },
             Command::QuantumEspresso(arg) => {
+                arg.version.clone()
+            },
+            Command::Openmx(arg) => {
+                arg.version.clone()
+            },
+            Command::Smash(arg) => {
+                arg.version.clone()
+            },
+            Command::Tombo(arg) => {
+                arg.version.clone()
+            },
+            Command::Rsdft(arg) => {
+                arg.version.clone()
+            },
+            Command::Hphi(arg) => {
+                arg.version.clone()
+            },
+            Command::Mvmc(arg) => {
+                arg.version.clone()
+            },
+            Command::Cp2k(arg) => {
+                arg.version.clone()
+            },
+            Command::Elk(arg) => {
+                arg.version.clone()
+            },
+            Command::Alamode(arg) => {
+                arg.version.clone()
+            },
+            Command::Salmon(arg) => {
+                arg.version.clone()
+            },
+            Command::Octopus(arg) => {
+                arg.version.clone()
+            },
+            Command::Wannier90(arg) => {
                 arg.version.clone()
             },
         }
@@ -154,7 +262,7 @@ impl Command {
             Command::Crystal(arg) => {
                 arg.bin.clone()
             },
-            Command::QuantumAtk(arg) => {
+            Command::Quantumatk(arg) => {
                 arg.bin.clone()
             },
             Command::Vasp4(arg) => {
@@ -182,6 +290,42 @@ impl Command {
                 arg.bin.clone()
             },
             Command::QuantumEspresso(arg) => {
+                arg.bin.clone()
+            },
+            Command::Openmx(arg) => {
+                arg.bin.clone()
+            },
+            Command::Smash(arg) => {
+                arg.bin.clone()
+            },
+            Command::Tombo(arg) => {
+                arg.bin.clone()
+            },
+            Command::Rsdft(arg) => {
+                arg.bin.clone()
+            },
+            Command::Hphi(arg) => {
+                arg.bin.clone()
+            },
+            Command::Mvmc(arg) => {
+                arg.bin.clone()
+            },
+            Command::Cp2k(arg) => {
+                arg.bin.clone()
+            },
+            Command::Elk(arg) => {
+                arg.bin.clone()
+            },
+            Command::Alamode(arg) => {
+                arg.bin.clone()
+            },
+            Command::Salmon(arg) => {
+                arg.bin.clone()
+            },
+            Command::Octopus(arg) => {
+                arg.bin.clone()
+            },
+            Command::Wannier90(arg) => {
                 arg.bin.clone()
             },
         }
