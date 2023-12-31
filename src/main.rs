@@ -1,16 +1,16 @@
 mod spec;
 mod job;
-mod arg;
+mod args;
 mod command;
 
 //use std::error::Error;
 use clap::Parser;
 
 use crate::job::Job;
-use crate::arg::Arg;
+use crate::args::Args;
 
 fn main() {
-    let arg = Arg::parse();
-    let script = Job::from_arg(arg).generate_script();
+    let args = Args::parse();
+    let script = Job::from_args(args).generate_script();
     println!("{}", script.unwrap());
 }

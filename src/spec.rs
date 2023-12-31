@@ -1,7 +1,6 @@
 use serde::{Serialize, Deserialize};
 use serde_json;
 use std::fs;
-use crate::command;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AppSpec {
@@ -37,7 +36,11 @@ pub struct BinSpec {
 }
 
 impl AppSpec {
-    pub fn from_json(json_path: &str) -> Self {
+    pub fn get_app_spec(app: &str) -> Self {
+        Self::from_json(format!("./spec/{}.json", app).as_str())
+    }
+
+    fn from_json(json_path: &str) -> Self {
         let spec_json = fs::read_to_string(&json_path).expect("should have been able to read the file");
         serde_json::from_str(&spec_json).expect("JSON format error")
     }
@@ -66,8 +69,8 @@ impl AppSpec {
         }
     }
 
-    pub fn get_version(&self, cmd: &command::Command) -> &VersionSpec {
-        if let Some(version) = &cmd.version() {
+    pub fn get_version_spec(&self, version: &Option<String>) -> &VersionSpec {
+        if let Some(version) = version {
             self.get_version_by_name(&version).expect("no such version")
         } else {
             self.get_default_version()
@@ -93,8 +96,8 @@ impl VersionSpec {
         }
     }
 
-    pub fn get_bin(&self, cmd: &command::Command) -> &BinSpec {
-        if let Some(bin) = &cmd.bin() {
+    pub fn get_bin_spec(&self, bin: &Option<String>) -> &BinSpec {
+        if let Some(bin) = bin {
             self.get_bin_by_name(&bin).expect("no such binary")
         } else {
             self.get_default_bin()

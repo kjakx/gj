@@ -1,6 +1,6 @@
 mod spec;
 mod job;
-mod arg;
+mod args;
 mod command;
 
 //use tera::{Tera, Context};

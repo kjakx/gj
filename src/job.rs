@@ -1,6 +1,6 @@
 use serde::Serialize;
 use tera::{Tera, Context};
-use crate::arg::Arg;
+use crate::args::Args;
 use crate::spec;
 use std::error::Error;
 
@@ -28,10 +28,10 @@ pub struct Job {
 }
 
 impl Job {
-    pub fn from_arg(arg: Arg) -> Self {
-        let app_spec = spec::AppSpec::from_json(&format!("./spec/{}.json", &arg.command.to_string()));
-        let version_spec = app_spec.get_version(&arg.command);
-        let bin_spec = version_spec.get_bin(&arg.command);
+    pub fn from_args(args: Args) -> Self {
+        let app_spec = spec::AppSpec::get_app_spec(&args.command.name());
+        let version_spec = app_spec.get_version_spec(&args.command.version());
+        let bin_spec = version_spec.get_bin_spec(&args.command.bin());
 
         let app_name = app_spec.get_name();
         let version = version_spec.get_name();
@@ -57,7 +57,7 @@ impl Job {
             template
         };
 
-        let queue = if let Some(queue) = arg.queue {
+        let queue = if let Some(queue) = args.queue {
             if app_spec.is_available_on_queue(&queue) {
                 queue
             } else {
@@ -67,25 +67,25 @@ impl Job {
             app_spec.get_default_queue()
         };
 
-        let job_name = if let Some(name) = arg.name {
+        let job_name = if let Some(name) = args.name {
             name
         } else {
             app_spec.get_name()
         };
 
-        let nodes = if let Some(nodes) = arg.nodes {
+        let nodes = if let Some(nodes) = args.nodes {
             nodes
         } else {
             1
         };
 
-        let ppn = if let Some(ppn) = arg.ppn {
+        let ppn = if let Some(ppn) = args.ppn {
             ppn
         } else {
             36
         };
         
-        let use_workdir = if let Some(use_workdir) = arg.use_workdir {
+        let use_workdir = if let Some(use_workdir) = args.use_workdir {
             use_workdir
         } else {
             true
@@ -97,9 +97,9 @@ impl Job {
             job_name: job_name,
             nodes: nodes,
             ppn: ppn,
-            walltime: arg.walltime,
-            mail_address: arg.mail_address,
-            mail_flags: arg.mail_flags,
+            walltime: args.walltime,
+            mail_address: args.mail_address,
+            mail_flags: args.mail_flags,
             use_workdir: use_workdir,
         }
     }

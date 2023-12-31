@@ -1,5 +1,4 @@
 use clap::{Args, Subcommand};
-use std::fmt;
 
 #[derive(Debug, Subcommand)]
 pub enum Command {
@@ -88,89 +87,86 @@ pub struct CommandArg {
     bin: Option<String>,
 }
 
-impl fmt::Display for Command {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+impl Command {
+    pub fn name(&self) -> String {
         match self {
             Command::Gaussian16(_) => {
-                write!(f, "gaussian16")
+                String::from("gaussian16")
             },
             Command::Adf(_) => {
-                write!(f, "adf")
+                String::from("adf")
             },
             Command::Crystal(_) => {
-                write!(f, "crystal")
+                String::from("crystal")
             },
             Command::Quantumatk(_) => {
-                write!(f, "quantumatk")
+                String::from("quantumatk")
             },
             Command::Vasp4(_) => {
-                write!(f, "vasp4")
+                String::from("vasp4")
             },
             Command::Vasp5(_) => {
-                write!(f, "vasp5")
+                String::from("vasp5")
             },
             Command::Vasp6(_) => {
-                write!(f, "vasp6")
+                String::from("vasp6")
             },
             Command::Wien2k(_) => {
-                write!(f, "wien2k")
+                String::from("wien2k")
             },
             Command::Cpmd(_) => {
-                write!(f, "cpmd")
+                String::from("cpmd")
             },
             Command::Abinit(_) => {
-                write!(f, "abinit")
+                String::from("abinit")
             },
             Command::Lammps(_) => {
-                write!(f, "lammps")
+                String::from("lammps")
             },
             Command::Siesta(_) => {
-                write!(f, "siesta")
+                String::from("siesta")
             },
             Command::QuantumEspresso(_) => {
-                write!(f, "quantum-espresso")
+                String::from("quantum-espresso")
             },
             Command::Openmx(_) => {
-                write!(f, "openmx")
+                String::from("openmx")
             },
             Command::Smash(_) => {
-                write!(f, "smash")
+                String::from("smash")
             },
             Command::Tombo(_) => {
-                write!(f, "tombo")
+                String::from("tombo")
             },
             Command::Rsdft(_) => {
-                write!(f, "rsdft")
+                String::from("rsdft")
             },
             Command::Hphi(_) => {
-                write!(f, "hphi")
+                String::from("hphi")
             },
             Command::Mvmc(_) => {
-                write!(f, "mvmc")
+                String::from("mvmc")
             },
             Command::Cp2k(_) => {
-                write!(f, "cp2k")
+                String::from("cp2k")
             },
             Command::Elk(_) => {
-                write!(f, "elk")
+                String::from("elk")
             },
             Command::Alamode(_) => {
-                write!(f, "alamode")
+                String::from("alamode")
             },
             Command::Salmon(_) => {
-                write!(f, "salmon")
+                String::from("salmon")
             },
             Command::Octopus(_) => {
-                write!(f, "octopus")
+                String::from("octopus")
             },
             Command::Wannier90(_) => {
-                write!(f, "wannier90")
+                String::from("wannier90")
             },
         }
     }
-}
-
-impl Command {
     pub fn version(&self) -> Option<String> {
         match self {
             Command::Gaussian16(arg) => {
