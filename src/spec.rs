@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
 use serde_json;
 use std::fs;
+use std::path::{Path, PathBuf};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AppSpec {
@@ -8,7 +9,7 @@ pub struct AppSpec {
     queues: Vec<String>,
     versions: Vec<VersionSpec>,
     #[serde(default)]
-    template: Option<String>,
+    template: Option<PathBuf>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -16,31 +17,31 @@ pub struct VersionSpec {
     name: String,
     bins: Vec<BinSpec>,
     #[serde(default)]
-    dir: Option<String>,
+    dir: Option<PathBuf>,
     #[serde(default)]
     is_default: bool,
     #[serde(default)]
-    config: Option<String>,
+    config: Option<PathBuf>,
     #[serde(default)]
-    template: Option<String>,
+    template: Option<PathBuf>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BinSpec {
     name: String,
-    path: String,
+    path: PathBuf,
     #[serde(default)]
     is_default: bool,
     #[serde(default)]
-    template: Option<String>,
+    template: Option<PathBuf>,
 }
 
 impl AppSpec {
     pub fn get_app_spec(app: &str) -> Self {
-        Self::from_json(format!("./spec/{}.json", app).as_str())
+        Self::from_json(&Path::new(format!("./spec/{}.json", app).as_str()))
     }
 
-    fn from_json(json_path: &str) -> Self {
+    fn from_json(json_path: &Path) -> Self {
         let spec_json = fs::read_to_string(&json_path).expect("should have been able to read the file");
         serde_json::from_str(&spec_json).expect("JSON format error")
     }
@@ -77,7 +78,7 @@ impl AppSpec {
         }
     }
 
-    pub fn get_template(&self) -> Option<String> {
+    pub fn get_template(&self) -> Option<PathBuf> {
         self.template.clone()
     }
 
@@ -108,15 +109,15 @@ impl VersionSpec {
         self.name.clone()
     }
 
-    pub fn get_dir(&self) -> Option<String> {
+    pub fn get_dir(&self) -> Option<PathBuf> {
         self.dir.clone()
     }
 
-    pub fn get_config(&self) -> Option<String> {
+    pub fn get_config(&self) -> Option<PathBuf> {
         self.config.clone()
     }
 
-    pub fn get_template(&self) -> Option<String> {
+    pub fn get_template(&self) -> Option<PathBuf> {
         self.template.clone()
     }
 }
@@ -126,11 +127,11 @@ impl BinSpec {
         self.name.clone()
     }
 
-    pub fn get_path(&self) -> String {
+    pub fn get_path(&self) -> PathBuf {
         self.path.clone()
     }
 
-    pub fn get_template(&self) -> Option<String> {
+    pub fn get_template(&self) -> Option<PathBuf> {
         self.template.clone()
     }
 }

@@ -2,16 +2,17 @@ use serde::Serialize;
 use tera::{Tera, Context};
 use crate::args::Args;
 use crate::spec;
+use std::path::PathBuf;
 use std::error::Error;
 
 #[derive(Serialize)]
 pub struct App {
     name: String,
     version: String,
-    dir: Option<String>,
-    bin: String,
-    config: Option<String>,
-    template: String,
+    dir: Option<PathBuf>,
+    bin: PathBuf,
+    config: Option<PathBuf>,
+    template: PathBuf,
 }
 
 #[derive(Serialize)]
@@ -113,7 +114,7 @@ impl Job {
             }
         };
     
-        let rendered = tera.render(&self.app.template, &Context::from_serialize(self)?)?;
+        let rendered = tera.render(self.app.template.to_str().unwrap(), &Context::from_serialize(self)?)?;
         Ok(rendered)
     }
 }
