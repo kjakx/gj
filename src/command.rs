@@ -167,6 +167,7 @@ impl Command {
             },
         }
     }
+    
     pub fn version(&self) -> Option<String> {
         match self {
             Command::Gaussian16(arg) => {
