@@ -7,15 +7,15 @@
             "name": "6.1.0",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.1.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.1.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.1.0/bin/vasp_gam"
                 }
             ]
@@ -25,15 +25,15 @@
             "is_default": true,
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/current/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/current/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/current/bin/vasp_gam"
                 }
             ]
@@ -42,15 +42,15 @@
             "name": "6.1.1_w90",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.1.1-wannier90v1.2/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.1.1-wannier90v1.2/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.1.1-wannier90v1.2/bin/vasp_gam"
                 }
             ]
@@ -59,15 +59,15 @@
             "name": "6.1.1_w90v2",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.1.1-wannier90v2.1.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.1.1-wannier90v2.1.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.1.1-wannier90v2.1.0/bin/vasp_gam"
                 }
             ]
@@ -76,15 +76,15 @@
             "name": "6.1.2",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.1.2/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.1.2/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.1.2/bin/vasp_gam"
                 }
             ]
@@ -93,15 +93,15 @@
             "name": "6.1.2_w90",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.1.2-wannier90v1.2/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.1.2-wannier90v1.2/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.1.2-wannier90v1.2/bin/vasp_gam"
                 }
             ]
@@ -110,15 +110,15 @@
             "name": "6.1.2_w90v2",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.1.2-wannier90v2.1.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.1.2-wannier90v2.1.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.1.2-wannier90v2.1.0/bin/vasp_gam"
                 }
             ]
@@ -127,15 +127,15 @@
             "name": "6.2.1",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.2.1/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.2.1/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.2.1/bin/vasp_gam"
                 }
             ]
@@ -144,15 +144,15 @@
             "name": "6.2.1_w90v2",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.2.1-wannier90v2.1.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.2.1-wannier90v2.1.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.2.1-wannier90v2.1.0/bin/vasp_gam"
                 }
             ]
@@ -161,15 +161,15 @@
             "name": "6.2.1_w90v3",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.2.1-wannier90v3.1.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.2.1-wannier90v3.1.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.2.1-wannier90v3.1.0/bin/vasp_gam"
                 }
             ]
@@ -178,15 +178,15 @@
             "name": "6.3.0",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.3.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.3.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.3.0/bin/vasp_gam"
                 }
             ]
@@ -195,15 +195,15 @@
             "name": "6.3.0_w90v2",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.3.0-wannier90v2.1.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.3.0-wannier90v2.1.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.3.0-wannier90v2.1.0/bin/vasp_gam"
                 }
             ]
@@ -212,15 +212,15 @@
             "name": "6.3.0_w90v3",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.3.0-wannier90v3.1.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.3.0-wannier90v3.1.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.3.0-wannier90v3.1.0/bin/vasp_gam"
                 }
             ]
@@ -229,15 +229,15 @@
             "name": "6.3.2",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.3.2/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.3.2/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.3.2/bin/vasp_gam"
                 }
             ]
@@ -246,15 +246,15 @@
             "name": "6.3.2_w90v2",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.3.2-wannier90v2.1.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.3.2-wannier90v2.1.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.3.2-wannier90v2.1.0/bin/vasp_gam"
                 }
             ]
@@ -263,15 +263,15 @@
             "name": "6.3.2_w90v3",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.3.2-wannier90v3.1.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.3.2-wannier90v3.1.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.3.2-wannier90v3.1.0/bin/vasp_gam"
                 }
             ]
@@ -280,15 +280,15 @@
             "name": "6.4.0",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.4.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.4.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.4.0/bin/vasp_gam"
                 }
             ]
@@ -297,15 +297,15 @@
             "name": "6.4.0_w90v2",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.4.0-wannier90v2.1.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.4.0-wannier90v2.1.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.4.0-wannier90v2.1.0/bin/vasp_gam"
                 }
             ]
@@ -314,15 +314,15 @@
             "name": "6.4.0_w90v3",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.4.0-wannier90v3.1.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.4.0-wannier90v3.1.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.4.0-wannier90v3.1.0/bin/vasp_gam"
                 }
             ]
@@ -331,15 +331,15 @@
             "name": "6.4.1",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.4.1/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.4.1/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.4.1/bin/vasp_gam"
                 }
             ]
@@ -348,15 +348,15 @@
             "name": "6.4.1_w90v2",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.4.1-wannier90v2.1.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.4.1-wannier90v2.1.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.4.1-wannier90v2.1.0/bin/vasp_gam"
                 }
             ]
@@ -365,15 +365,15 @@
             "name": "6.4.1_w90v3",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.4.1-wannier90v3.1.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.4.1-wannier90v3.1.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.4.1-wannier90v3.1.0/bin/vasp_gam"
                 }
             ]
@@ -382,15 +382,15 @@
             "name": "6.4.2",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.4.2/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.4.2/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.4.2/bin/vasp_gam"
                 }
             ]
@@ -399,15 +399,15 @@
             "name": "6.4.2_w90v2",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.4.2-wannier90v2.1.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.4.2-wannier90v2.1.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.4.2-wannier90v2.1.0/bin/vasp_gam"
                 }
             ]
@@ -416,15 +416,15 @@
             "name": "6.4.2_w90v3",
             "bins": [
                 {
-                    "name": "std",
+                    "name": "vasp_std",
                     "path": "/work/app/VASP6/vasp.6.4.2-wannier90v3.1.0/bin/vasp_std"
                 },
                 {
-                    "name": "ncl",
+                    "name": "vasp_ncl",
                     "path": "/work/app/VASP6/vasp.6.4.2-wannier90v3.1.0/bin/vasp_ncl"
                 },
                 {
-                    "name": "gam",
+                    "name": "vasp_gam",
                     "path": "/work/app/VASP6/vasp.6.4.2-wannier90v3.1.0/bin/vasp_gam"
                 }
             ]

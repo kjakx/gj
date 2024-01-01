@@ -1,0 +1,97 @@
+{
+    "name": "quantum-espresso",
+    "queues": ["P_016", "P_032", "P_064", "DP_002"],
+    "template": "super/quantum-espresso.sh",
+    "versions": [
+        {
+            "name": "6.2.1",
+            "bins": [
+                {
+                    "name": "pw.x",
+                    "path": "/work/app/QuantumESPRESSO/current/bin/pw.x"
+                }
+            ]
+        },
+        {
+            "name": "6.3",
+            "bins": [
+                {
+                    "name": "pw.x",
+                    "path": "/work/app/QuantumESPRESSO/qe-6.3/bin/pw.x"
+                }
+            ]
+        },
+        {
+            "name": "6.4.1",
+            "bins": [
+                {
+                    "name": "pw.x",
+                    "path": "/work/app/QuantumESPRESSO/qe-6.4.1/bin/pw.x"
+                }
+            ]
+        },
+        {
+            "name": "6.5",
+            "bins": [
+                {
+                    "name": "pw.x",
+                    "path": "/work/app/QuantumESPRESSO/qe-6.5/bin/pw.x"
+                }
+            ]
+        },
+        {
+            "name": "6.6",
+            "bins": [
+                {
+                    "name": "pw.x",
+                    "path": "/work/app/QuantumESPRESSO/qe-6.6/bin/pw.x"
+                }
+            ]
+        },
+        {
+            "name": "6.7",
+            "bins": [
+                {
+                    "name": "pw.x",
+                    "path": "/work/app/QuantumESPRESSO/qe-6.7/bin/pw.x"
+                }
+            ]
+        },
+        {
+            "name": "6.8",
+            "bins": [
+                {
+                    "name": "pw.x",
+                    "path": "/work/app/QuantumESPRESSO/qe-6.8/bin/pw.x"
+                }
+            ]
+        },
+        {
+            "name": "7.0",
+            "bins": [
+                {
+                    "name": "pw.x",
+                    "path": "/work/app/QuantumESPRESSO/qe-7.0/bin/pw.x"
+                }
+            ]
+        },
+        {
+            "name": "7.1",
+            "bins": [
+                {
+                    "name": "pw.x",
+                    "path": "/work/app/QuantumESPRESSO/qe-7.1/bin/pw.x"
+                }
+            ]
+        },
+        {
+            "name": "7.2",
+            "bins": [
+                {
+                    "name": "pw.x",
+                    "path": "/work/app/QuantumESPRESSO/qe-7.2/bin/pw.x"
+                }
+            ]
+        }
+    ]
+}
