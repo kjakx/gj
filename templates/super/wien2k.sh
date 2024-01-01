@@ -11,25 +11,31 @@
 {%- endif %}
 
 {%- if use_workdir %}
+
 DIRNAME=`basename $PBS_O_WORKDIR`
 WORKDIR=/work/$USER/$PBS_JOBID
 mkdir -p $WORKDIR
-cp -raf  $PBS_O_WORKDIR $WORKDIR
+cp -raf $PBS_O_WORKDIR $WORKDIR
 cd $WORKDIR/$DIRNAME
-{%- else %}
-cd ${PBS_O_WORKDIR}
-{%- endif %}
 
-{%- if use_workdir %}
 export SCRATCH=$WORKDIR/$DIRNAME
 export TMPDIR=$WORKDIR/$DIRNAME
-{%- endif %} 
 export WIENROOT={{ app.dir }}
 export PATH=$WIENROOT:$PATH
 module load intel
 
+{%- else %}
+
+cd ${PBS_O_WORKDIR}
+export WIENROOT={{ app.dir }}
+export PATH=$WIENROOT:$PATH
+module load intel
+
+{%- endif %}
+
 aprun -b -d {{ nodes * ppn }} -j 1 --cc depth {{ app.bin }} -p -cc 0.0001 -NI > {{ job_name }}.out 2> {{ job_name }}.err
 
 {%- if use_workdir %}
+
 cd; if cp -raf $WORKDIR/$DIRNAME $PBS_O_WORKDIR/.. ; then rm -rf $WORKDIR; fi
 {%- endif -%}

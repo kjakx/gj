@@ -10,16 +10,22 @@
 #PBS -M {{ mail_address }}
 {%- endif %}
 
+{%- if use_workdir %}
+
 module load intel
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{{ app.dir }}/spglib/install_dir/lib
-{% if use_workdir -%}
 DIRNAME=`basename $PBS_O_WORKDIR`
 WORKDIR=/work/$USER/$PBS_JOBID
 mkdir -p $WORKDIR
-cp -raf  $PBS_O_WORKDIR $WORKDIR
+cp -raf $PBS_O_WORKDIR $WORKDIR
 cd $WORKDIR/$DIRNAME
+
 {%- else %}
+
+module load intel
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{{ app.dir }}/spglib/install_dir/lib
 cd ${PBS_O_WORKDIR}
+
 {%- endif %}
 
 export OMP_NUM_THREADS={{ ppn }}
@@ -30,5 +36,6 @@ aprun -n 1 -d {{ ppn }} -N 1 -j 1 --cc depth {{ app.bin }} {{ job_name }}.in > {
 {%- endif %}
 
 {%- if use_workdir %}
+
 cd; if cp -raf $WORKDIR/$DIRNAME $PBS_O_WORKDIR/.. ; then rm -rf $WORKDIR; fi
 {%- endif -%}

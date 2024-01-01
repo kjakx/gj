@@ -10,18 +10,23 @@
 #PBS -M {{ mail_address }}
 {%- endif %}
 
-{% if use_workdir -%}
+{%- if use_workdir %}
+
 DIRNAME=`basename $PBS_O_WORKDIR`
 WORKDIR=/work/$USER/$PBS_JOBID
 mkdir -p $WORKDIR
-cp -raf  $PBS_O_WORKDIR $WORKDIR
+cp -raf $PBS_O_WORKDIR $WORKDIR
 cd $WORKDIR/$DIRNAME
+
 {%- else %}
+
 cd ${PBS_O_WORKDIR}
+
 {%- endif %}
 
 aprun -n {{ nodes * ppn }} -N {{ ppn }} -j 1 {{ app.bin }} -s {{ job_name }}.in > {{ job_name }}.out 2> {{ job_name }}.err
 
 {%- if use_workdir %}
+
 cd; if cp -raf $WORKDIR/$DIRNAME $PBS_O_WORKDIR/.. ; then rm -rf $WORKDIR; fi
 {%- endif -%}

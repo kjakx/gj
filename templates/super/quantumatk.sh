@@ -11,15 +11,20 @@
 #PBS -M {{ mail_address }}
 {%- endif %}
 
-module load ccm
 {%- if use_workdir %}
+
+module load ccm
 DIRNAME=`basename $PBS_O_WORKDIR`
 WORKDIR=/work/$USER/$PBS_JOBID
 mkdir -p $WORKDIR
-cp -raf  $PBS_O_WORKDIR $WORKDIR
+cp -raf $PBS_O_WORKDIR $WORKDIR
 cd $WORKDIR/$DIRNAME
+
 {%- else %}
+
+module load ccm
 cd ${PBS_O_WORKDIR}
+
 {%- endif %}
 
 aprun -n {{ nodes * ppn }} -N {{ ppn }} hostname | grep -v ^Applicati > hostfile
@@ -30,5 +35,6 @@ ccmrun {{ app.dir }}/libexec/mpiexec.hydra -n {{ nodes * ppn }} -f ./hostfile -g
 {%- endif %}
 
 {%- if use_workdir %}
+
 cd; if cp -raf $WORKDIR/$DIRNAME $PBS_O_WORKDIR/.. ; then rm -rf $WORKDIR; fi
 {%- endif -%}
