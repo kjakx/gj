@@ -3,33 +3,51 @@ use tera::{Tera, Context};
 use crate::args::Args;
 use crate::spec;
 use std::path::PathBuf;
-use std::error::Error;
+use anyhow::{Result, anyhow};
 
 #[derive(Serialize)]
 pub struct App {
     name: String,
     version: String,
-    dir: Option<PathBuf>,
     bin: PathBuf,
+    dir: Option<PathBuf>,
     config: Option<PathBuf>,
-    template: PathBuf,
+}
+
+#[derive(Serialize)]
+pub struct PbsOpts {
+    queue: String,
+    jobname: String,
+    nodes: u8,
+    ncpus: Option<u8>,
+    ngpus: Option<u8>,
+    walltime: Option<String>,
+    mail_address: Option<String>,
+    mail_flags: Option<String>,
+    cwd: bool,
+}
+
+#[derive(Serialize)]
+pub struct RunOpts {
+    nprocs: u16,
+    ppn: u8,
+    threads: u8,
+    tpc: u8,
+    input: String,
+    stdout: String,
+    stderr: String,
 }
 
 #[derive(Serialize)]
 pub struct Job {
     pub app: App,
-    pub queue: String,
-    pub job_name: String,
-    pub nodes: u8,
-    pub ppn: u8,
-    pub walltime: Option<String>,
-    pub mail_address: Option<String>,
-    pub mail_flags: Option<String>,
-    pub use_workdir: bool,
+    pub pbs: PbsOpts,
+    pub run: RunOpts,
+    pub template: PathBuf,
 }
 
 impl Job {
-    pub fn from_args(args: Args) -> Self {
+    pub fn from_args(args: &Args) -> Result<Self> {
         let app_spec = spec::AppSpec::get_app_spec(&args.command.name());
         let version_spec = app_spec.get_version_spec(&args.command.version());
         let bin_spec = version_spec.get_bin_spec(&args.command.bin());
@@ -39,6 +57,50 @@ impl Job {
         let dir = version_spec.get_dir();
         let bin = bin_spec.get_path();
         let config = version_spec.get_config();
+
+        let app = App {
+            name: app_name,
+            version,
+            dir,
+            bin,
+            config,
+        };
+
+        let queue = args.queue.clone().unwrap_or(app_spec.get_default_queue());
+        let jobname = args.name.clone().unwrap_or(app_spec.get_name());
+        let nodes = args.nodes.unwrap_or(1);
+        let cwd = args.cwd.unwrap_or(false);
+
+        let pbs = PbsOpts {
+            queue,
+            jobname,
+            nodes,
+            ncpus: args.ncpus,
+            ngpus: args.ngpus,
+            walltime: args.walltime.clone(),
+            mail_address: args.mail_address.clone(),
+            mail_flags: args.mail_flags.clone(),
+            cwd,
+        };
+
+        let ppn = args.ppn.unwrap_or(36);
+        let nprocs = args.nprocs.unwrap_or((nodes * ppn) as u16);
+        let threads = args.threads.unwrap_or(36);
+        let tpc = args.tpc.unwrap_or(1);
+        let input = args.input.clone().unwrap_or(format!("{}.in", &pbs.jobname));
+        let stdout = args.stdout.clone().unwrap_or(format!("{}.out", &pbs.jobname));
+        let stderr = args.stderr.clone().unwrap_or(format!("{}.err", &pbs.jobname));
+
+        let run = RunOpts {
+            nprocs,
+            ppn,
+            threads,
+            tpc,
+            input,
+            stdout,
+            stderr,
+        };
+
         let template = if let Some(template) = bin_spec.get_template() {
             template
         } else if let Some(template) = version_spec.get_template() {
@@ -49,72 +111,19 @@ impl Job {
             panic!("template file is not specified");
         };
 
-        let app = App {
-            name: app_name,
-            version,
-            dir,
-            bin,
-            config,
-            template
+        let job = Job {
+            app,
+            pbs,
+            run,
+            template,
         };
 
-        let queue = if let Some(queue) = args.queue {
-            if app_spec.is_available_on_queue(&queue) {
-                queue
-            } else {
-                panic!("the queue is not supported");
-            }
-        } else {
-            app_spec.get_default_queue()
-        };
-
-        let job_name = if let Some(name) = args.name {
-            name
-        } else {
-            app_spec.get_name()
-        };
-
-        let nodes = if let Some(nodes) = args.nodes {
-            nodes
-        } else {
-            1
-        };
-
-        let ppn = if let Some(ppn) = args.ppn {
-            ppn
-        } else {
-            36
-        };
-        
-        let use_workdir = if let Some(use_workdir) = args.use_workdir {
-            use_workdir
-        } else {
-            true
-        };
-
-        Job {
-            app: app,
-            queue: queue,
-            job_name: job_name,
-            nodes: nodes,
-            ppn: ppn,
-            walltime: args.walltime,
-            mail_address: args.mail_address,
-            mail_flags: args.mail_flags,
-            use_workdir: use_workdir,
-        }
+        Ok(job)
     }
 
-    pub fn generate_script(&self) -> Result<String, Box<dyn Error>> {
-        let tera = match Tera::new("templates/**/*.sh") {
-            Ok(t) => t,
-            Err(e) => {
-                println!("Parsing error(s): {}", e);
-                ::std::process::exit(1);
-            }
-        };
-    
-        let rendered = tera.render(self.app.template.to_str().unwrap(), &Context::from_serialize(self)?)?;
+    pub fn to_script(&self) -> Result<String> {
+        let tera = Tera::new("templates/**/*.sh")?;
+        let rendered = tera.render(self.template.to_str().unwrap(), &Context::from_serialize(self)?)?;
         Ok(rendered)
     }
 }

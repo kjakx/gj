@@ -5,12 +5,13 @@ mod command;
 
 //use std::error::Error;
 use clap::Parser;
+use anyhow::Result;
 
 use crate::job::Job;
 use crate::args::Args;
 
-fn main() {
-    let args = Args::parse();
-    let script = Job::from_args(args).generate_script();
-    println!("{}", script.unwrap());
+fn main() -> Result<()> {
+    let script = Args::try_parse()?.to_job()?.to_script()?;
+    println!("{}", script);
+    Ok(())
 }
