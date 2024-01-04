@@ -4,7 +4,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use anyhow::{anyhow, Result};
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct AppSpec {
     name: String,
     queues: Vec<String>,
@@ -13,7 +13,7 @@ pub struct AppSpec {
     template: Option<PathBuf>,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct VersionSpec {
     name: String,
     bins: Vec<BinSpec>,
@@ -48,8 +48,8 @@ impl AppSpec {
         Ok(spec_json)
     }
 
-    pub fn get_name(&self) -> String {
-        self.name.clone()
+    pub fn get_name(&self) -> &String {
+        &self.name
     }
 
     pub fn is_available_on_queue(&self, queue: &str) -> bool {
@@ -68,13 +68,13 @@ impl AppSpec {
         match queue {
             Some(queue) => {
                 match self.get_queue_by_name(&queue) {
-                    Some(queue) => Ok(queue),
+                    Some(queue) => Ok(queue.to_string()),
                     None        => Err(anyhow!("no such queue: {}", &queue))
                 }
             },
             None => {
                 match self.get_default_queue() {
-                    Some(queue) => Ok(queue),
+                    Some(queue) => Ok(queue.to_string()),
                     None        => Err(anyhow!("no queue is available"))
                 }
             }
@@ -86,7 +86,7 @@ impl AppSpec {
     }
 
     pub fn get_version_by_name(&self, name: &str) -> Option<&VersionSpec> {
-        self.versions.iter().filter(|&version| version.name == name).next()
+        self.versions.iter().filter(|&version| version.get_name() == name).next()
     }
 
     pub fn get_default_version(&self) -> Option<&VersionSpec> {
@@ -114,15 +114,15 @@ impl AppSpec {
         }
     }
 
-    pub fn get_template(&self) -> Option<PathBuf> {
-        self.template.clone()
+    pub fn get_template(&self) -> &Option<PathBuf> {
+        &self.template
     }
 
 }
 
 impl VersionSpec {
     pub fn get_bin_by_name(&self, name: &str) -> Option<&BinSpec> {
-        self.bins.iter().filter(|&bin| bin.name == name).next()
+        self.bins.iter().filter(|&bin| bin.get_name() == name).next()
     }
 
     pub fn get_default_bin(&self) -> Option<&BinSpec> {
@@ -146,33 +146,33 @@ impl VersionSpec {
         }
     }
 
-    pub fn get_name(&self) -> String {
-        self.name.clone()
+    pub fn get_name(&self) -> &String {
+        &self.name
     }
 
-    pub fn get_dir(&self) -> Option<PathBuf> {
-        self.dir.clone()
+    pub fn get_dir(&self) -> &Option<PathBuf> {
+        &self.dir
     }
 
-    pub fn get_config(&self) -> Option<PathBuf> {
-        self.config.clone()
+    pub fn get_config(&self) -> &Option<PathBuf> {
+        &self.config
     }
 
-    pub fn get_template(&self) -> Option<PathBuf> {
-        self.template.clone()
+    pub fn get_template(&self) -> &Option<PathBuf> {
+        &self.template
     }
 }
 
 impl BinSpec {
-    pub fn get_name(&self) -> String {
-        self.name.clone()
+    pub fn get_name(&self) -> &String {
+        &self.name
     }
 
-    pub fn get_path(&self) -> PathBuf {
-        self.path.clone()
+    pub fn get_path(&self) -> &PathBuf {
+        &self.path
     }
 
-    pub fn get_template(&self) -> Option<PathBuf> {
-        self.template.clone()
+    pub fn get_template(&self) -> &Option<PathBuf> {
+        &self.template
     }
 }

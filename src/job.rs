@@ -3,7 +3,7 @@ use tera::{Tera, Context};
 use crate::args::Args;
 use crate::spec;
 use std::path::PathBuf;
-use anyhow::Result;
+use anyhow::{Result, anyhow};
 
 #[derive(Serialize)]
 pub struct AppInfo {
@@ -52,11 +52,11 @@ impl Job {
         let version_spec = app_spec.get_version_spec(&args.command.version())?;
         let bin_spec = version_spec.get_bin_spec(&args.command.bin())?;
 
-        let app_name = app_spec.get_name();
-        let version = version_spec.get_name();
-        let dir = version_spec.get_dir();
-        let bin = bin_spec.get_path();
-        let config = version_spec.get_config();
+        let app_name = app_spec.get_name().to_owned();
+        let version = version_spec.get_name().to_owned();
+        let dir = version_spec.get_dir().to_owned();
+        let bin = bin_spec.get_path().to_owned();
+        let config = version_spec.get_config().to_owned();
 
         let app = AppInfo {
             name: app_name,
@@ -67,7 +67,7 @@ impl Job {
         };
 
         let queue = app_spec.get_queue(&args.queue)?;
-        let jobname = args.name.clone().unwrap_or(app_spec.get_name());
+        let jobname = args.name.clone().unwrap_or(app_spec.get_name().to_owned());
         let nodes = args.nodes.unwrap_or(1);
 
         let pbs = PbsOpts {
@@ -101,13 +101,13 @@ impl Job {
         };
 
         let template = if let Some(template) = bin_spec.get_template() {
-            template
+            template.to_owned()
         } else if let Some(template) = version_spec.get_template() {
-            template
+            template.to_owned()
         } else if let Some(template) = app_spec.get_template() {
-            template
+            template.to_owned()
         } else {
-            panic!("template file is not specified");
+            return Err(anyhow!("template is not set"));
         };
 
         let job = Job {
