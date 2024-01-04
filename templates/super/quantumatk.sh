@@ -1,17 +1,27 @@
 #!/bin/sh
-#PBS -l select={{ nodes }}
-#PBS -l atk=1 -l atkdp={{ nodes * ppn - 1 }}
-#PBS -N {{ job_name }}
-#PBS -q {{ queue }}
-{%- if walltime %}
-#PBS -l walltime={{ walltime }}
+#PBS -q {{ pbs.queue }}
+#PBS -N {{ pbs.jobname }}
+#PBS -l select={{ pbs.nodes }}
+{%- if pbs.ncpus -%}
+:ncpus={{ pbs.ncpus }}
+{%- endif -%}
+{%- if pbs.ngpus -%}
+:ngpus={{ pbs.ngpus }}
+{%- endif -%}
+{%- if pbs.walltime %}
+#PBS -l walltime={{ pbs.walltime }}
 {%- endif %}
-{%- if mail_address and mail_flags %}
-#PBS -m {{ mail_flags }}
-#PBS -M {{ mail_address }}
+{%- if pbs.mail_address and pbs.mail_flags %}
+#PBS -m {{ pbs.mail_flags }}
+#PBS -M {{ pbs.mail_address }}
 {%- endif %}
 
-{%- if use_workdir %}
+{%- if pbs.cwd %}
+
+module load ccm
+cd ${PBS_O_WORKDIR}
+
+{%- else %}
 
 module load ccm
 DIRNAME=`basename $PBS_O_WORKDIR`
@@ -20,21 +30,16 @@ mkdir -p $WORKDIR
 cp -raf $PBS_O_WORKDIR $WORKDIR
 cd $WORKDIR/$DIRNAME
 
-{%- else %}
-
-module load ccm
-cd ${PBS_O_WORKDIR}
-
 {%- endif %}
 
-aprun -n {{ nodes * ppn }} -N {{ ppn }} hostname | grep -v ^Applicati > hostfile
+aprun -n {{ run.nprocs }} -N {{ run.ppn }} hostname | grep -v ^Applicati > hostfile
 {%- if app.version == "2022.12-SP1" %}
-ccmrun {{ app.dir }}/mpi/bin/mpiexec.hydra -n {{ nodes * ppn }} -f ./hostfile -genv I_MPI_FABRICS=shm:tcp {{ app.bin }} {{ job_name }}.py > {{ job_name }}.out 2> {{ job_name }}.err
+ccmrun {{ app.dir }}/mpi/bin/mpiexec.hydra -n {{ run.nprocs }} -f ./hostfile -genv I_MPI_FABRICS=shm:tcp {{ app.bin }} {{ pbs.jobname }}.py > {{ run.stdout }} 2> {{ run.stderr }}
 {%- else %}
-ccmrun {{ app.dir }}/libexec/mpiexec.hydra -n {{ nodes * ppn }} -f ./hostfile -genv I_MPI_FABRICS=shm:tcp {{ app.bin }} {{ job_name }}.py > {{ job_name }}.out 2> {{ job_name }}.err
+ccmrun {{ app.dir }}/libexec/mpiexec.hydra -n {{ run.nprocs }} -f ./hostfile -genv I_MPI_FABRICS=shm:tcp {{ app.bin }} {{ pbs.jobname }}.py > {{ run.stdout }} 2> {{ run.stderr }}
 {%- endif %}
 
-{%- if use_workdir %}
+{%- if not pbs.cwd %}
 
 cd; if cp -raf $WORKDIR/$DIRNAME $PBS_O_WORKDIR/.. ; then rm -rf $WORKDIR; fi
 {%- endif -%}

@@ -3,10 +3,10 @@ use tera::{Tera, Context};
 use crate::args::Args;
 use crate::spec;
 use std::path::PathBuf;
-use anyhow::{Result, anyhow};
+use anyhow::Result;
 
 #[derive(Serialize)]
-pub struct App {
+pub struct AppInfo {
     name: String,
     version: String,
     bin: PathBuf,
@@ -40,7 +40,7 @@ pub struct RunOpts {
 
 #[derive(Serialize)]
 pub struct Job {
-    pub app: App,
+    pub app: AppInfo,
     pub pbs: PbsOpts,
     pub run: RunOpts,
     pub template: PathBuf,
@@ -48,9 +48,9 @@ pub struct Job {
 
 impl Job {
     pub fn from_args(args: &Args) -> Result<Self> {
-        let app_spec = spec::AppSpec::get_app_spec(&args.command.name());
-        let version_spec = app_spec.get_version_spec(&args.command.version());
-        let bin_spec = version_spec.get_bin_spec(&args.command.bin());
+        let app_spec = spec::AppSpec::get_app_spec(&args.command.name())?;
+        let version_spec = app_spec.get_version_spec(&args.command.version())?;
+        let bin_spec = version_spec.get_bin_spec(&args.command.bin())?;
 
         let app_name = app_spec.get_name();
         let version = version_spec.get_name();
@@ -58,7 +58,7 @@ impl Job {
         let bin = bin_spec.get_path();
         let config = version_spec.get_config();
 
-        let app = App {
+        let app = AppInfo {
             name: app_name,
             version,
             dir,
@@ -66,10 +66,9 @@ impl Job {
             config,
         };
 
-        let queue = args.queue.clone().unwrap_or(app_spec.get_default_queue());
+        let queue = app_spec.get_queue(&args.queue)?;
         let jobname = args.name.clone().unwrap_or(app_spec.get_name());
         let nodes = args.nodes.unwrap_or(1);
-        let cwd = args.cwd.unwrap_or(false);
 
         let pbs = PbsOpts {
             queue,
@@ -80,7 +79,7 @@ impl Job {
             walltime: args.walltime.clone(),
             mail_address: args.mail_address.clone(),
             mail_flags: args.mail_flags.clone(),
-            cwd,
+            cwd: args.cwd,
         };
 
         let ppn = args.ppn.unwrap_or(36);

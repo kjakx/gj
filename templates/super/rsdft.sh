@@ -1,16 +1,27 @@
 #!/bin/sh
-#PBS -N {{ job_name }}
-#PBS -q {{ queue }}
-#PBS -l select={{ nodes }}
-{%- if walltime %}
-#PBS -l walltime={{ walltime }}
+#PBS -q {{ pbs.queue }}
+#PBS -N {{ pbs.jobname }}
+#PBS -l select={{ pbs.nodes }}
+{%- if pbs.ncpus -%}
+:ncpus={{ pbs.ncpus }}
+{%- endif -%}
+{%- if pbs.ngpus -%}
+:ngpus={{ pbs.ngpus }}
+{%- endif -%}
+{%- if pbs.walltime %}
+#PBS -l walltime={{ pbs.walltime }}
 {%- endif %}
-{%- if mail_address and mail_flags %}
-#PBS -m {{ mail_flags }}
-#PBS -M {{ mail_address }}
+{%- if pbs.mail_address and pbs.mail_flags %}
+#PBS -m {{ pbs.mail_flags }}
+#PBS -M {{ pbs.mail_address }}
 {%- endif %}
 
-{%- if use_workdir %}
+{%- if pbs.cwd %}
+
+export MPICH_NO_BUFFER_ALIAS_CHECK=1
+cd ${PBS_O_WORKDIR}
+
+{%- else %}
 
 export MPICH_NO_BUFFER_ALIAS_CHECK=1
 DIRNAME=`basename $PBS_O_WORKDIR`
@@ -19,16 +30,11 @@ mkdir -p $WORKDIR
 cp -raf $PBS_O_WORKDIR $WORKDIR
 cd $WORKDIR/$DIRNAME
 
-{%- else %}
-
-export MPICH_NO_BUFFER_ALIAS_CHECK=1
-cd ${PBS_O_WORKDIR}
-
 {%- endif %}
 
-aprun -n {{ nodes * ppn }} -N {{ ppn }} -j 1 {{ app.bin }} > {{ job_name }}.out 2> {{ job_name }}.err
+aprun -n {{ run.nprocs }} -N {{ run.ppn }} -j {{ run.tpc }} {{ app.bin }} > {{ run.stdout }} 2> {{ run.stderr }}
 
-{%- if use_workdir %}
+{%- if not pbs.cwd %}
 
 cd; if cp -raf $WORKDIR/$DIRNAME $PBS_O_WORKDIR/.. ; then rm -rf $WORKDIR; fi
 {%- endif -%}
