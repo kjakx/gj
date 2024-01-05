@@ -1,5 +1,6 @@
 use serde::{Serialize, Deserialize};
 use serde_json;
+use std::env;
 use std::fs;
 use std::path::{Path, PathBuf};
 use anyhow::{anyhow, Result};
@@ -39,7 +40,7 @@ pub struct BinSpec {
 
 impl AppSpec {
     pub fn get_app_spec(app: &str) -> Result<Self> {
-        Self::from_json(&Path::new(format!("./spec/{}.json", app).as_str()))
+        Self::from_json(&Path::new(format!("{}/spec/{}.json", env!("CARGO_MANIFEST_DIR"), app).as_str()))
     }
 
     fn from_json(json_path: &Path) -> Result<Self> {
@@ -64,6 +65,10 @@ impl AppSpec {
         }
     }
 
+    pub fn get_default_queue(&self) -> Option<String> {
+        self.queues.iter().next().cloned()
+    }
+
     pub fn get_queue(&self, queue: &Option<String>) -> Result<String> {
         match queue {
             Some(queue) => {
@@ -75,16 +80,12 @@ impl AppSpec {
             None => {
                 match self.get_default_queue() {
                     Some(queue) => Ok(queue.to_string()),
-                    None        => Err(anyhow!("no queue is available"))
+                    None        => Err(anyhow!("no default queue is available"))
                 }
             }
         }
     }
-
-    pub fn get_default_queue(&self) -> Option<String> {
-        self.queues.iter().next().cloned()
-    }
-
+    
     pub fn get_version_by_name(&self, name: &str) -> Option<&VersionSpec> {
         self.versions.iter().filter(|&version| version.get_name() == name).next()
     }

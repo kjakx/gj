@@ -121,7 +121,7 @@ impl Job {
     }
 
     pub fn to_script(&self) -> Result<String> {
-        let tera = Tera::new("templates/**/*.sh")?;
+        let tera = Tera::new(format!("{}/templates/**/*.sh", env!("CARGO_MANIFEST_DIR")).as_str())?;
         let rendered = tera.render(self.template.to_str().unwrap(), &Context::from_serialize(self)?)?;
         Ok(rendered)
     }
