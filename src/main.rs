@@ -9,7 +9,7 @@ use anyhow::Result;
 use crate::args::Args;
 
 fn main() -> Result<()> {
-    let script = Args::try_parse()?.to_job()?.to_script()?;
+    let script = Args::parse().to_job()?.to_script()?;
     println!("{}", script);
     Ok(())
 }
