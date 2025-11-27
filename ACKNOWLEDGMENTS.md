@@ -15,10 +15,11 @@ This project relies on the following excellent Rust crates:
 
 This project is licensed under either of:
 
-- Apache License, Version 2.0 (`LICENSE-APACHE`)
+- Apache License, Version 2.0 (`LICENSE-Apache-2.0`)
 - MIT license (`LICENSE-MIT`)
 
 at your option.
 
 All dependencies are compatible with this dual licensing scheme.
+
 
