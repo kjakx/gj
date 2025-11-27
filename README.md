@@ -1,2 +1,0 @@
-# gj
-generate jobscript
