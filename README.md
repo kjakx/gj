@@ -137,8 +137,9 @@ The available options in the config file are:
 
 ## Template
 You can use your own template by passing the path to `template-path` command line option or `template_path` config option.
-**[Tera](https://github.com/Keats/tera)** is used as the template engine. Please see Tera's manual for the detail of its notation.
 If no template path is specified, the default template (`defaults/template.sh`) is used.
+
+**[Tera](https://github.com/Keats/tera)** is used as the template engine. Please see Tera's manual for the detail of its notation.
 
 ## Future List (someday)
  * Add more options
