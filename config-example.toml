@@ -1,0 +1,28 @@
+# The following lines are the root profile.
+shell = "/bin/bash"
+email_address = "example@example.com"
+email_flags = "abe"
+
+# named profile
+[gpu8]
+queue = "gpu_8slots"
+resources = [
+	"select=1:ncpus=8:ngpus=8",
+	"walltime=08:00:00"
+]
+commands = [
+	"module load nvhpc",
+	"mpirun -np 8 ./a.out > stdout 2> stderr"
+]
+
+# default profile which is applied when no profile name is specified
+[default]
+queue = "cpu_112cores"
+resources = [
+	"select=1:ncpus=112:mem=230gb",
+	"walltime=24:00:00"
+]
+commands = [
+	"module load openmpi",
+	"mpirun -np 112 ./a.out > stdout 2> stderr"
+]

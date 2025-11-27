@@ -1,0 +1,16 @@
+[package]
+name = "gj"
+version = "0.4.0"
+authors = ["Kota Nakano <k.jak.xg0g11@gmail.com>"]
+description = "Job Script Generator for Batch Job Schedulers"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/kjakx/gj"
+
+[dependencies]
+anyhow = "1.0.100"
+clap = { version = "4.5.53", features = ["derive"] }
+confy = "2.0.0"
+merge-struct = "0.1.0"
+serde = { version = "1.0.228", features = ["derive"] }
+tera = "1.20.1"
