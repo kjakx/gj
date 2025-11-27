@@ -1,5 +1,6 @@
 # gj
 gj is a job script generator with configuration and template system.
+
 This project is under development and currently available only on linux cluster and PBS job scheduler with limited options.
 
 ## Installation
