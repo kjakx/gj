@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-This project relies on the following excellent Rust crates (all dual-licensed Apache-2.0 OR MIT):
+This project relies on the following excellent Rust crates:
 
 - **[anyhow](https://github.com/dtolnay/anyhow)** - Error handling
 - **[clap](https://github.com/clap-rs/clap)** - Command-line argument parsing
@@ -21,3 +21,4 @@ This project is licensed under either of:
 at your option.
 
 All dependencies are compatible with this dual licensing scheme.
+
