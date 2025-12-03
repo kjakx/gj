@@ -145,3 +145,13 @@ If no template path is specified, the default template (`defaults/template.sh`) 
  * Add more options
  * Support other job schedulers (Slurm, Grid Engine, etc.)
  * Support other template engine (Mustache looks good)
+ * 
+ 
+## License
+
+This project is licensed under either of:
+
+- Apache License, Version 2.0 (`LICENSE-Apache-2.0`)
+- MIT license (`LICENSE-MIT`)
+
+at your option.
