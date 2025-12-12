@@ -22,7 +22,7 @@ impl Config {
         } else {
             &confy::get_configuration_file_path("gj", "config")?
         };
-        let config = confy::load_or_else(config_path, || Config::default())?;
+        let config = confy::load_path(config_path)?;
         Ok(config)
     }
 
@@ -42,4 +42,5 @@ impl Config {
         };
         self.root.merge(profile)
     }
+
 }
