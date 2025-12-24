@@ -17,11 +17,8 @@ impl Config {
     /// If a config path is provided as argument, use that.
     /// If not, use $XDG_CONFIG_HOME/gj/config.toml
     pub fn load(config_path: &Option<PathBuf>) -> Result<Self> {
-        let config_path = if let Some(config_path) = config_path {
-            config_path
-        } else {
-            &confy::get_configuration_file_path("gj", "config")?
-        };
+        let fallback = &confy::get_configuration_file_path("gj", "config")?;
+        let config_path = config_path.as_deref().unwrap_or(fallback);
         let config = confy::load_path(config_path)?;
         Ok(config)
     }
@@ -29,18 +26,10 @@ impl Config {
     /// Return profile with a given name in the config file.
     /// If not given profile name, use "default" instead. 
     /// Note: The specified profile overrides the root profile.
-    pub fn get_profile(&self, name: &Option<String>) -> Result<Profile> {
-        let profile_name = if let Some(profile_name) = name {
-            profile_name
-        } else {
-            "default"
-        };
-        let profile = if let Some(profile) = self.profiles.get(profile_name) {
-            profile
-        } else {
-            &Profile::default()
-        };
+    pub fn get_profile(&self, profile_name: &Option<String>) -> Result<Profile> {
+        let fallback = &Profile::default();
+        let profile_name = profile_name.as_deref().unwrap_or("default");
+        let profile = self.profiles.get(profile_name).unwrap_or(fallback);
         self.root.merge(profile)
     }
-
 }
