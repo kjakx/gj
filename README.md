@@ -22,7 +22,7 @@ cd ${PBS_O_WORKDIR}
 You can pass some options to `gj` command:
 | option  				| description 		| value			| default	|
 | :---:					| :---:				| :---:			| :-------:	|
-| `--shell`				| path to the shell | path			|			|
+| `--shell`, `-S`		| path to the shell | path			|			|
 | `--name`, `-N`		| job name 			| text			|			|
 | `--queue`, `-q`		| queue name 		| text			|			|
 | `--resources`, `-l`	| resources list (multiple) | list of "key=value" text | 			|
