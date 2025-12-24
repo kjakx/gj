@@ -10,7 +10,7 @@ pub struct Profile {
     #[arg(long, value_name = "TEXT")]
     pub scheduler: Option<String>,
     /// shell name
-    #[arg(long, value_name = "TEXT")]
+    #[arg(short = 'S', long, value_name = "TEXT")]
     pub shell: Option<PathBuf>,
     /// job name
     #[arg(short = 'N', long, value_name = "TEXT")]
@@ -133,4 +133,5 @@ mod tests {
         assert_eq!(got2.shell.unwrap(), "/bin/sh");
         assert_eq!(got2.scheduler.unwrap(), "pbs");
     }
+
 }
