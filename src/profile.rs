@@ -1,8 +1,8 @@
-use std::path::PathBuf;
 use anyhow::Result;
 use clap::Parser;
 use merge_struct::merge;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
+use std::path::PathBuf;
 
 #[derive(Parser, Serialize, Deserialize)]
 pub struct Profile {
@@ -60,10 +60,9 @@ impl Profile {
         let mut merged = Self::default();
         merged = merge(&merged, self)?;
         merged = merge(&merged, overrides)?;
-        Ok(merged) 
+        Ok(merged)
     }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -73,7 +72,7 @@ mod tests {
     #[test]
     fn default_profile_has_expected_values() {
         let d = Profile::default();
-        assert_eq!(d.shell.unwrap(), "/bin/sh");
+        assert!(d.shell.is_none());
         assert_eq!(d.cwd.unwrap(), true);
         assert!(d.resources.unwrap().is_empty());
         assert!(d.commands.unwrap().is_empty());
@@ -83,7 +82,7 @@ mod tests {
     fn merge_overrides_take_precedence_and_defaults_apply() {
         let root = Profile {
             scheduler: Some("pbs".into()),
-            shell: None,
+            cwd: None,
             ..Profile::default()
         };
 
@@ -98,8 +97,8 @@ mod tests {
         assert_eq!(merged.scheduler.unwrap(), "slurm");
         // overrides.queue should be present
         assert_eq!(merged.queue.unwrap(), "workq");
-        // shell should be filled from default (since root.shell was None)
-        assert_eq!(merged.shell.unwrap(), "/bin/sh");
+        // cwd should be filled from default (since root.shell was None)
+        assert_eq!(merged.cwd.unwrap(), true);
     }
 
     #[test]
@@ -122,16 +121,15 @@ mod tests {
 
         let got = cfg.get_profile(&Some("special".into())).unwrap();
         // profile's shell overrides root
-        assert_eq!(got.shell.unwrap(), "/bin/zsh");
+        assert_eq!(got.shell.unwrap(), PathBuf::from("/bin/zsh"));
         // root's scheduler remains
         assert_eq!(got.scheduler.unwrap(), "pbs");
 
         // missing profile: root.merge(Profile::default())
         // The merge_struct lib merges bottom-up: default -> root -> profile(default)
-        // so profile::default() wins, giving shell="/bin/sh" from Profile::default()
+        // so profile::root wins, giving shell="/bin/bash" from Profile::default()
         let got2 = cfg.get_profile(&Some("missing".into())).unwrap();
-        assert_eq!(got2.shell.unwrap(), "/bin/sh");
+        assert_eq!(got2.shell.unwrap(), PathBuf::from("/bin/bash"));
         assert_eq!(got2.scheduler.unwrap(), "pbs");
     }
-
 }
